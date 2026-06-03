@@ -5,36 +5,35 @@ let checkbox=document.querySelector('#checkbox');
 let username=document.querySelector('#username');
 let password=document.querySelector('#password');
 let existing=document.querySelector('#existing');
-let body=document.querySelector('body');
-let p=document.createElement('p');
-body.appendChild(p);
 
-existing.style.display='none';
+
+if(localStorage.getItem("username")){
+    existing.style.display = "block";
+}
+
+existing.addEventListener('click',()=>{
+    let saveduser = localStorage.getItem('username');
+    alert(`Logged in as ${saveduser}`);
+});
 
 form.addEventListener('submit',(e)=>{
-	let user=username.value;
-	let pass=password.value;
-	
-	e.preventDefault();
-	p.innerHTML=checkbox.value;
-	
-	if(checkbox.checked){
-		localStorage.setItem(`username`,user);
-		localStorage.setItem(`password`,pass);
-		alert(`Logged in as ${user}`);
-	}else{
-		 localStorage.removeItem("username");
-	    localStorage.removeItem("password");
-	}
-	
-	existing.style.display='block';
+    e.preventDefault();
 
-	existing.addEventListener('click',()=>{
-		let saveduser = localStorage.getItem('username');
-		alert(`Logged in as ${saveduser}`);
-	})
+    let user = username.value;
+    let pass = password.value;
 
-	username.value = '';
-	password.value = '';
-})
+    alert(`Logged in as ${user}`);
 
+    if(checkbox.checked){
+        localStorage.setItem("username",user);
+        localStorage.setItem("password",pass);
+        existing.style.display = "block";
+    }else{
+        localStorage.removeItem("username");
+        localStorage.removeItem("password");
+        existing.style.display = "none";
+    }
+
+    username.value = '';
+    password.value = '';
+});
