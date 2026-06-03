@@ -7,6 +7,8 @@ let password=document.querySelector('#password');
 let existing=document.querySelector('#existing');
 
 
+existing.style.display = "none";
+
 if(localStorage.getItem("username")){
     existing.style.display = "block";
 }
